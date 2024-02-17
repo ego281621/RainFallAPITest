@@ -28,27 +28,19 @@ namespace RainfallAPI.Controllers
 
             // Validate the stationId parameter
             if (stationId < 1)
-            {
-                // Add an error detail if the station ID is invalid
                 errorDetails.Add(new ErrorDetail { PropertyName = nameof(stationId), Message = $"The {nameof(stationId)} is not valid." });
-            }
 
             // Validate the count parameter using pattern matching
             if (count is < 1 or > 100)
-            {
-                // Add an error detail if the count is not within the valid range (1-100)
                 errorDetails.Add(new ErrorDetail { PropertyName = nameof(count), Message = "Must be a positive integer between 1 to 100 only." });
-            }
 
             // If any error details were added, return a bad request response
             if (errorDetails.Any())
-            {
                 return BadRequest(new ErrorResponse
                 {
                     Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.InvalidRequest),
                     Detail = errorDetails
                 });
-            }
 
             try
             {
@@ -61,14 +53,14 @@ namespace RainfallAPI.Controllers
             }
             catch (Exception ex)
             {
-                // If an unexpected error occurs, return an Internal Server Error response with error details
+                // If an unexpected error occurs, add error details for logging
+                errorDetails.Add(new ErrorDetail { PropertyName = ex.Source, Message = ex.Message });
+
+                // Return an Internal Server Error response with error details
                 return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse
                 {
                     Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.InternalServerError),
-                    Detail = new List<ErrorDetail>
-                    {
-                        new ErrorDetail { PropertyName = ex.Source, Message = ex.Message }
-                    }
+                    Detail = errorDetails
                 });
             }
         }
