@@ -44,7 +44,7 @@ Retrieves a list of rainfall readings for a given station ID.
 **Parameters:**
 
 - `stationId` (required, integer): The ID of the rainfall station.
-- `count` (optional, integer, mininmum=100, default=10, max=100): The number of rainfall readings to retrieve.
+- `count` (optional, integer, minimum=100, default=10, max=100): The number of rainfall readings to retrieve.
 
 **Responses:**
 
