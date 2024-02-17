@@ -31,6 +31,12 @@ namespace RainfallAPI.Services
             // Get the base URL from appsettings.json using IConfiguration
             string baseUrl = _configuration.GetValue<string>(baseUrlKeyValue);
 
+            if (string.IsNullOrEmpty(baseUrl))
+            {
+                // Throw an exception if no API Base Url is setup in the appsettings
+                throw new Exception("No API Base Url is setup in the appsettings.");
+            }
+
             // Construct the URL for the API endpoint
             string url = $"{baseUrl}/flood-monitoring/id/stations/{stationId}/readings?_sorted&_limit={count}";
 
