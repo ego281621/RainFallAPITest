@@ -50,16 +50,14 @@ namespace RainfallAPI.Services
         // Method to parse JSON response and map to RainfallReading models
         public static List<RainfallReading> ParseReadings(string json)
         {
-            List<RainfallReading> readings = new List<RainfallReading>();
-
             // Parse JSON string to JObject
             JObject obj = JObject.Parse(json);
 
             // Extract items array from JSON object
             JArray items = (JArray)obj["items"];
 
-            // Loop through each item in the items array
-            foreach (JObject item in items)
+            // Map JSON items to RainfallReading models
+            var readings = items.Select(item =>
             {
                 // Extract dateTime and value properties from item
                 string dateTimeStr = (string)item["dateTime"];
@@ -68,13 +66,13 @@ namespace RainfallAPI.Services
                 // Parse dateTime string to DateTime object using CultureInfo.InvariantCulture
                 DateTime dateTime = DateTime.Parse(dateTimeStr, CultureInfo.InvariantCulture);
 
-                // Create new RainfallReading object and add to readings list
-                readings.Add(new RainfallReading
+                // Create and return RainfallReading object
+                return new RainfallReading
                 {
                     DateMeasured = dateTime,
                     AmountMeasured = value
-                });
-            }
+                };
+            }).ToList();
 
             return readings;
         }
