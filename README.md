@@ -9,6 +9,8 @@ The Rainfall API allows users to retrieve a list of rainfall readings for a spec
 ## Dependencies
 
 - .NET 6.0 SDK
+- Newtonsoft
+- Swashbuckle
 - Moq (for unit testing)
 - NUnit (for unit testing)
 
