@@ -54,7 +54,7 @@ namespace RainfallAPI.Services
         }
 
         // Method to parse JSON response and map to RainfallReading models
-        public static List<RainfallReading> ParseReadings(string json)
+        private static List<RainfallReading> ParseReadings(string json)
         {
             // Parse JSON string to JObject
             JObject obj = JObject.Parse(json);
