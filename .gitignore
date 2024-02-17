@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/RainfallAPI/bin/Debug/net6.0
+/.vs/RainfallAPI/FileContentIndex
+/RainfallAPI/obj
+/RainfallAPI.Test/bin/Debug/net6.0
+/RainfallAPI.Test/obj/Debug/net6.0/ref/RainfallAPI.Test.dll
+/RainfallAPI.Test/obj
