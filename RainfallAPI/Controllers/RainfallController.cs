@@ -22,29 +22,31 @@ namespace RainfallAPI.Controllers
         public async Task<IActionResult> GetRainfallReadingsAsync([FromRoute] int stationId, [FromQuery] int count = 10)
         {
             // Validate input parameters
+
+            // Initialize a list to store error details
+            var errorDetails = new List<ErrorDetail>();
+
+            // Validate the stationId parameter
             if (stationId < 1)
             {
-                // Return a bad request response if the station ID is invalid
-                return BadRequest(new ErrorResponse
-                {
-                    Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.InvalidRequest),
-                    Detail = new List<ErrorDetail>
-                    {
-                        new ErrorDetail { PropertyName = nameof(stationId), Message = $"The {nameof(stationId)} is not valid." }
-                    }
-                });
+                // Add an error detail if the station ID is invalid
+                errorDetails.Add(new ErrorDetail { PropertyName = nameof(stationId), Message = $"The {nameof(stationId)} is not valid." });
             }
 
+            // Validate the count parameter using pattern matching
             if (count is < 1 or > 100)
             {
-                // Return a bad request response if the count is not within the valid range (1-100)
+                // Add an error detail if the count is not within the valid range (1-100)
+                errorDetails.Add(new ErrorDetail { PropertyName = nameof(count), Message = "Must be a positive integer between 1 to 100 only." });
+            }
+
+            // If any error details were added, return a bad request response
+            if (errorDetails.Any())
+            {
                 return BadRequest(new ErrorResponse
                 {
                     Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.InvalidRequest),
-                    Detail = new List<ErrorDetail>
-                    {
-                        new ErrorDetail { PropertyName = nameof(count), Message = "Must be a positive integer between 1 to 100 only." }
-                    }
+                    Detail = errorDetails
                 });
             }
 
