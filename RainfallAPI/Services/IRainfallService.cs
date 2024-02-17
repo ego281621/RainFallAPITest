@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace RainfallAPI.Services
 {
-    // Interface for weather data service
+    // Interface for rainfall data service
     public interface IRainfallService
     {
         // Method to get rainfall readings by station id
