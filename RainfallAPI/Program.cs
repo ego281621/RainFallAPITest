@@ -34,6 +34,6 @@ app.UseAuthorization(); // Enable authorization middleware.
 
 app.MapControllers(); // Map controllers to endpoints.
 
-app.UseRouting(); // Enable routing middleware. Registering this prior to your middleware unlocks the ✨.
+app.UseRouting(); // Enable routing middleware.
 
 app.Run(); // Run the application.
