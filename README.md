@@ -8,8 +8,7 @@ The Rainfall API allows users to retrieve a list of rainfall readings for a spec
 
 ## Dependencies
 
-- .NET 7.0 SDK
-- Microsoft.Extensions.Logging.Abstractions
+- .NET 6.0 SDK
 - Moq (for unit testing)
 - NUnit (for unit testing)
 
