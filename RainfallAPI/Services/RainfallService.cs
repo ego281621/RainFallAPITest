@@ -69,13 +69,10 @@ namespace RainfallAPI.Services
                 string dateTimeStr = (string)item["dateTime"];
                 decimal value = (decimal)item["value"];
 
-                // Parse dateTime string to DateTime object using CultureInfo.InvariantCulture
-                DateTime dateTime = DateTime.Parse(dateTimeStr, CultureInfo.InvariantCulture);
-
                 // Create and return RainfallReading object
                 return new RainfallReading
                 {
-                    DateMeasured = dateTime,
+                    DateMeasured = dateTimeStr,
                     AmountMeasured = value
                 };
             }).ToList();
