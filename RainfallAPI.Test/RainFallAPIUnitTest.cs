@@ -32,8 +32,8 @@ public class RainFallAPIUnitTest
         var count = 10;
         var expectedReadings = new List<RainfallReading>
             {
-                new RainfallReading { DateMeasured = DateTime.Now, AmountMeasured = 10.5m },
-                new RainfallReading { DateMeasured = DateTime.Now.AddDays(-1), AmountMeasured = 15.2m }
+                new RainfallReading { DateMeasured = DateTime.Now.ToString(), AmountMeasured = 10.5m },
+                new RainfallReading { DateMeasured = DateTime.Now.AddDays(-1).ToString(), AmountMeasured = 15.2m }
             };
 
         _rainfallServiceMock.Setup(s => s.GetRainfallReadingsAsync(stationId, count))
