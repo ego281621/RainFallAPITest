@@ -65,9 +65,9 @@ public class RainFallAPIUnitTest
         var badRequestResult = (BadRequestObjectResult)result;
         Assert.IsInstanceOf<ErrorResponse>(badRequestResult.Value);
         var errorResponse = (ErrorResponse)badRequestResult.Value;
-        Assert.AreEqual(1, errorResponse.Error.Detail.Count);
-        Assert.AreEqual(nameof(stationId), errorResponse.Error.Detail[0].PropertyName);
-        Assert.IsTrue(errorResponse.Error.Detail[0].Message.Contains($"The {nameof(stationId)} is not valid"));
+        Assert.AreEqual(1, errorResponse.Detail.Count);
+        Assert.AreEqual(nameof(stationId), errorResponse.Detail[0].PropertyName);
+        Assert.IsTrue(errorResponse.Detail[0].Message.Contains($"The {nameof(stationId)} is not valid"));
     }
 
     [Test]
