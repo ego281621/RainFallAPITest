@@ -30,6 +30,7 @@ namespace RainfallAPI.Controllers
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(RainfallReadingResponse), StatusCodes.Status200OK)]
+        [Produces("application/json")]
         public async Task<IActionResult> GetRainfallReadingsAsync([FromRoute] string stationId, [FromQuery] int count = 10)
         {
             // Validate input parameters
