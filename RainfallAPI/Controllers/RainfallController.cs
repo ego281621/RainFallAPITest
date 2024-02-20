@@ -27,7 +27,7 @@ namespace RainfallAPI.Controllers
         /// <returns>The rainfall readings for the specified station.</returns>
         [HttpGet("id/{stationId}/readings")]
         //This is used for swagger OpenAPI documentation
-        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(RainfallReadingResponse), StatusCodes.Status200OK)]
