@@ -35,7 +35,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(); // Enable Swagger middleware for generating Swagger JSON
-    app.UseSwaggerUI(); // Enable Swagger UI middleware for interactive API documentation
+   // app.UseSwaggerUI(); // Enable Swagger UI middleware for interactive API documentation
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rainfall API v1");
+        c.RoutePrefix = "swagger";
+    });
 }
 
 app.UseHttpsRedirection(); // Enable HTTPS redirection middleware.

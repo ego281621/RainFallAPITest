@@ -29,23 +29,26 @@ namespace RainfallAPI.Controllers
             // Validate input parameters
 
             // Initialize a error response to store error details
-            var errorResponse = new ErrorResponse();
+            var error = new Error();
 
             // Validate the stationId parameter
             if (!int.TryParse(stationId, out int value))
             {
-                errorResponse.Detail.Add(new ErrorDetail { PropertyName = nameof(stationId), Message = $"The {nameof(stationId)} is not valid." });
+                error.Detail.Add(new ErrorDetail { PropertyName = nameof(stationId), Message = $"The {nameof(stationId)} is not valid." });
             }
 
             // Validate the count parameter using pattern matching
             if (count is < 1 or > 100)
-                errorResponse.Detail.Add(new ErrorDetail { PropertyName = nameof(count), Message = "Must be a positive integer between 1 to 100 only." });
+                error.Detail.Add(new ErrorDetail { PropertyName = nameof(count), Message = "Must be a positive integer between 1 to 100 only." });
 
             // If any error details were added, return a bad request response
-            if (errorResponse.Detail.Any())
+            if (error.Detail.Any())
             {
-                errorResponse.Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.InvalidRequest);
-                return BadRequest(errorResponse);
+                error.Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.InvalidRequest);
+                return BadRequest(new ErrorResponse
+                {
+                    Error = error,
+                });
             }
 
             try
@@ -60,11 +63,14 @@ namespace RainfallAPI.Controllers
             catch (Exception ex)
             {
                 // If an unexpected error occurs, add error details for logging
-                errorResponse.Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.InternalServerError);
-                errorResponse.Detail.Add(new ErrorDetail { PropertyName = ex.Source, Message = ex.Message });
+                error.Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.InternalServerError);
+                error.Detail.Add(new ErrorDetail { PropertyName = ex.Source, Message = ex.Message });
 
                 // Return an Internal Server Error response with error details
-                return StatusCode((int)HttpStatusCode.InternalServerError, errorResponse);
+                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse
+                {
+                    Error = error,
+                });
             }
         }
     }
