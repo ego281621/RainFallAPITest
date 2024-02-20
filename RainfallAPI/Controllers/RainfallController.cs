@@ -26,6 +26,7 @@ namespace RainfallAPI.Controllers
         /// <param name="count">The number of readings to retrieve (default is 10, max is 100).</param>
         /// <returns>The rainfall readings for the specified station.</returns>
         [HttpGet("id/{stationId}/readings")]
+        //This is used for swagger OpenAPI documentation
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
