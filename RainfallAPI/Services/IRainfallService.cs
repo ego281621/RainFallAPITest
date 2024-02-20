@@ -8,6 +8,6 @@ namespace RainfallAPI.Services
     public interface IRainfallService
     {
         // Method to get rainfall readings by station id
-        Task<List<RainfallReading>> GetRainfallReadingsAsync(int stationId, int count);
+        Task<List<RainfallReading>> GetRainfallReadingsAsync(string stationId, int count);
     }
 }

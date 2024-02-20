@@ -11,9 +11,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers(); // Add MVC controllers to the services container.
 builder.Services.AddEndpointsApiExplorer(); // Add API explorer services.
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(options =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rainfall API", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Rainfall Api",
+        Description = "An API which provides rainfall reading data ",
+        Contact = new OpenApiContact
+        {
+            Name = "Sorted",
+            Url = new Uri("https://www.sorted.com")
+        },
+    });
 }); // Add Swagger services for API documentation.
 
 builder.Services.AddScoped<IRainfallService, RainfallService>(); // Register the RainfallService for dependency injection.

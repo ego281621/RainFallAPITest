@@ -26,7 +26,7 @@ namespace RainfallAPI.Services
         }
 
         // Method implementation to get rainfall readings
-        public async Task<List<RainfallReading>> GetRainfallReadingsAsync(int stationId, int count)
+        public async Task<List<RainfallReading>> GetRainfallReadingsAsync(string stationId, int count)
         {
             // Get the base URL from appsettings.json using IConfiguration
             string baseUrl = _configuration.GetValue<string>(baseUrlKeyValue);
