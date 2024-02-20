@@ -7,6 +7,8 @@ using System.Net;
 
 namespace RainfallAPI.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class RainfallController : ControllerBase
     {
         private readonly IRainfallService _rainfallService;
