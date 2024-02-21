@@ -64,7 +64,7 @@ namespace RainfallAPI.Controllers
                 // Call the service to get rainfall readings asynchronously
                 var readings = await _rainfallService.GetRainfallReadingsAsync(stationId, count);
 
-                // if Readings return a not found response
+                // if no readings return a not found response
                 if (!readings.Any())
                 {
                     error.Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.NotFound);
