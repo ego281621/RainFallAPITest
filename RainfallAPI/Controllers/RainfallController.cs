@@ -27,7 +27,7 @@ namespace RainfallAPI.Controllers
         /// <returns>The rainfall readings for the specified station.</returns>
         [HttpGet("id/{stationId}/readings")]
         //This is used for swagger OpenAPI documentation
-        [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(RainfallReadingResponse), StatusCodes.Status200OK)]
@@ -64,9 +64,19 @@ namespace RainfallAPI.Controllers
                 // Call the service to get rainfall readings asynchronously
                 var readings = await _rainfallService.GetRainfallReadingsAsync(stationId, count);
 
+                // if Readings return a not found response
+                if (!readings.Any())
+                {
+                    error.Message = ErrorTypeExtensions.GetErrorMessage(ErrorType.NotFound);
+                    error.Detail.Add(new ErrorDetail { PropertyName = nameof(stationId), Message = $"No readings found for the specified {nameof(stationId)}." });
+                    return NotFound(new ErrorResponse
+                    {
+                        Error = error,
+                    });
+                }
+
                 // If there are readings, return an OK response with the RainfallReadingResponse;
-                // otherwise, return a NoContent response
-                return readings.Any() ? Ok(new RainfallReadingResponse { Readings = readings }) : NoContent();
+                return Ok(new RainfallReadingResponse { Readings = readings });
             }
             catch (Exception ex)
             {

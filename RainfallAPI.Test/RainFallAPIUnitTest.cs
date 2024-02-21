@@ -85,7 +85,13 @@ public class RainFallAPIUnitTest
         var result = await _controller.GetRainfallReadingsAsync(stationId, count);
 
         // Assert
-        Assert.IsInstanceOf<NoContentResult>(result);
+        Assert.IsInstanceOf<NotFoundObjectResult>(result);
+        var notFoundRequestResult = (NotFoundObjectResult)result;
+        Assert.IsInstanceOf<ErrorResponse>(notFoundRequestResult.Value);
+        var errorResponse = (ErrorResponse)notFoundRequestResult.Value;
+        Assert.AreEqual(1, errorResponse.Error.Detail.Count);
+        Assert.AreEqual(nameof(stationId), errorResponse.Error.Detail[0].PropertyName);
+        Assert.IsTrue(errorResponse.Error.Detail[0].Message.Contains($"No readings found for the specified {nameof(stationId)}."));
     }
 
 }

@@ -4,7 +4,8 @@
     public enum ErrorType
     {
         InvalidRequest,
-        InternalServerError
+        InternalServerError,
+        NotFound
     }
 
     // Extension method for ErrorType enum to get error message
@@ -16,6 +17,8 @@
             {
                 case ErrorType.InvalidRequest:
                     return "Invalid Request.";
+                case ErrorType.NotFound:
+                    return "Not Found.";
                 case ErrorType.InternalServerError:
                 default:
                     return "Internal Server Error.";
